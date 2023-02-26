@@ -22,24 +22,13 @@ void Input()
 
 int Process()
 {
-    v.resize(n + 1);
-
-    int r = 0;
-    for (int i = 0; i < n + 1; ++i)
-    {
-        v[i] = r;
-        r++;
-
-        if (r == m) r = 0;
-    }
-
     int rowNumber = int((n + 1) / m);
     if ((n + 1) % m > 0) rowNumber += 1;
 
-    int start = int(t / rowNumber);
-    int step = t % rowNumber;     
+    int row = int(t / rowNumber);
+    int col = t % rowNumber;     
 
-    int res = start + (step * m);
+    int res = row + (col * m);
 
     return res;
 }
