@@ -1,3 +1,5 @@
+# Ý tưởng
+
 Giả sử dãy số *n* gồm các số bắt đầu từ 0 đến *n*.
 Ta có thể lần lượt đặt từng số vào *chỗ ngồi* trong bảng gồm *m* cột như Mảng 1.
 
