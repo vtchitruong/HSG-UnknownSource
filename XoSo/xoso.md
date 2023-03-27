@@ -20,7 +20,7 @@ Có tất cả 6 cách chọn, tương ứng với 6 bộ. Tổng của các gi�
 
 ## Ý tưởng
 
-**Bước 1**
+**Bước 1**  
 Tạo hàm Generate để phát sinh (chọn) một bộ số bằng đệ quy.  
 &emsp;- Nếu một bộ đã có đủ *k* số thì dừng đệ quy và nạp bộ này vào vector *cac_cachchon*.  
 &emsp;- Ứng với mỗi số *x* trong *n* số:  
@@ -28,8 +28,8 @@ Tạo hàm Generate để phát sinh (chọn) một bộ số bằng đệ quy.
 &emsp;&emsp;+ Gọi đệ quy để nạp số tiếp theo vào bộ đang xét chọn tại ví trị *i* kế tiếp.  
 &emsp;&emsp;+ Gỡ bỏ số *x* ở vị trị cuối của bộ đang xét chọn (để chuẩn bị nạp *x* kế tiếp trong *n* số).  
 
-**Bước 2**
+**Bước 2**  
 Tính giá trị lớn nhất của mỗi bộ. Nạp các giá trị lớn nhất vào vector *diem_thuong*.  
 
-**Bước 3**
+**Bước 3**  
 Tính tổng các phần tử trong vector *diem_thuong*.  
