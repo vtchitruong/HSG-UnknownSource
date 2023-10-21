@@ -25,20 +25,7 @@ void Input()
     f.close();
 }
 
-void Init()
-{
-    // v1.resize(s1.length, {});
-    for (int i = 0; i < s1.length(); ++i)
-    {
-        v1.push_back({s1[i], i});
-    }
-
-    for (int i = 0; i < s2.length(); ++i)
-    {
-        v2.push_back({s2[i], i});
-    }
-}
-
+// Hàm dùng để so sánh hai phần tử khi sắp xếp vector v1 va v2
 bool compare(const pair<char, int>& a, const pair<char, int>& b)
 {
     if (a.first == b.first)
@@ -53,15 +40,23 @@ bool compare(const pair<char, int>& a, const pair<char, int>& b)
 
 void Process()
 {
-    // Bước 1: Khởi tạo vector v1 và v2
-    Init();
+    // Bước 1. Khởi tạo vector v1 và v2
+    for (int i = 0; i < s1.length(); ++i)
+    {
+        v1.push_back({s1[i], i});
+    }
 
-    // Bước 2: Sắp xếp
+    for (int i = 0; i < s2.length(); ++i)
+    {
+        v2.push_back({s2[i], i});
+    }
+
+    // Bước 2. Sắp xếp
     sort(v1.begin(), v1.end(), compare);
     sort(v2.begin(), v2.end(), compare);
 
-    // Bước 3:
-    // Xác định vị trí giống nhau đầu tiên giữa v1 và v2
+    // Bước 3.
+    // Bước 3.1. Xác định vị trí giống nhau đầu tiên giữa v1 và v2
     int p1 = -1;
     int p2 = -1;
 
@@ -70,7 +65,7 @@ void Process()
     {
         for (int i2 = 0; i2 < v2.size(); ++i2)
         {
-            // Nếu có ký tự giống nhau thì đặt lại mốc p1 và p2 mới
+            // Nếu có ký tự giống nhau thì ghi nhận p1 và p2 và ngắt cả hai vòng lặp
             if (v1[i1].first == v2[i2].first)
             {
                 p1 = i1;
@@ -82,10 +77,12 @@ void Process()
                 break;
             }
         }
+
+        // Ngắt luôn vòng lặp i1
         if (break_loop) break;
     }
 
-    // Nếu có ký tự giống nhau (tức p1 không còn là -1) thì bắt đầu tìm các ký tự khác
+    // Bước 3.2. Nếu có ký tự giống nhau (tức p1 không còn là -1) thì bắt đầu tìm các ký tự khác
     if (p1 != -1)
     {
         int i1 = p1 + 1;
