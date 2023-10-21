@@ -9,7 +9,7 @@
 using namespace std;
 
 int n;
-vector<int> a; // average
+vector<int> a;
 
 void Input()
 {
@@ -33,25 +33,30 @@ void Input()
 
 vector<int> Process()
 {
-    // Bước 1: Khởi tạo mảng các số cần tìm
-    vector<int> res(n, 0);
-    res[0] = a[0];
+    // Bước 1: Khởi tạo mảng b gồm các phần tử 0
+    vector<int> b(n, 0);
+    b[0] = a[0];
 
-    // Bước 2: Lấy tổng tất cả phần tử trừ đi tổng các phần tử đã có
-    //         ra được phần tử res[i] tiếp theo cần tìm.
+    // Bước 2: Lấy tổng tất cả phần tử trừ đi tổng của những phần tử đã có
+    //         sẽ ra được phần tử b[i] đang xét.
     for (int i = 1; i < n; ++i)
     {
+        // Tính tổng tất cả phần tử
         int sum_all = a[i] * (i + 1);
-        int sum_before = accumulate(res.begin(), res.begin() + i + 1, 0);
-        res[i] = sum_all - sum_before;
+        
+        // Tính tổng của những phần tử đã có trước đó trong mảng b
+        int sum_before = accumulate(b.begin(), b.begin() + i + 1, 0);
+        
+        // Tính b[i] cần tìm
+        b[i] = sum_all - sum_before;
     }
 
-    return res;
+    return b;
 }
 
 void Output()
 {
-    vector<int> res = Process();
+    vector<int> b = Process();
     
     ios_base::sync_with_stdio(false);
     cout.tie(nullptr);
@@ -61,7 +66,7 @@ void Output()
 
     for (int i = 0; i < n; ++i)
     {
-        f << res[i] << ' ';
+        f << b[i] << ' ';
     }
 
     f.close();
