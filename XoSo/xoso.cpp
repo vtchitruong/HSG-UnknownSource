@@ -13,7 +13,7 @@ typedef long long int lli;
 
 int n, k;
 vector<int> a;
-vector<vector<int>> cac_cachchon; // Các cách chọn bộ k số
+vector<vector<int>> choices; // Các cách chọn bộ k số
 
 void Input()
 {
@@ -35,46 +35,44 @@ void Input()
     f.close();
 }
 
-// Hàm tạo bộ k số từ n số bằng đệ quy
-void Generate(vector<int>& cachchon_hientai, int batdau)
+// Hàm tạo bộ k số từ n số bằng back-tracking và đệ quy
+void Generate(vector<int>& choice, int next)
 {
     // Nếu một bộ đã có đủ k số thì dừng đệ quy
-    // và nạp vào vector cac_cachchon
-    if (cachchon_hientai.size() == k)
+    // và nạp vào vector choices
+    if (choice.size() == k)
     {
-        cac_cachchon.push_back(cachchon_hientai);
+        choices.push_back(choice);
         return;
     }
 
-    for (int i = batdau; i < a.size(); ++i)
+    // Ứng với mỗi số x trong n số:
+    // - Nạp số x này vào bộ đang xét chọn
+    // - Gọi đệ quy để nạp số tiếp theo vào vị trí tiếp theo của bộ đang xét chọn
+    // - Gỡ bỏ x ở vị trí cuối của bộ đang xét chọn 
+    for (int i = next; i < a.size(); ++i)
     {
-        cachchon_hientai.push_back(a[i]);
-        Generate(cachchon_hientai, i + 1);
-        cachchon_hientai.pop_back();
+        choice.push_back(a[i]);
+        Generate(choice, i + 1);
+        choice.pop_back();
     }
-}
-
-void Get_cac_cachchon()
-{
-    vector<int> cachchon_hientai;
-    Generate(cachchon_hientai, 0);
 }
 
 lli Process()
 {
-    vector<int> cachchon_hientai;
-    Generate(cachchon_hientai, 0);
+    vector<int> choice;
+    Generate(choice, 0);
 
-    vector<int> diem_thuong;
+    vector<int> bonus;
 
-    for (int i = 0; i < cac_cachchon.size(); ++i)
+    for (int i = 0; i < choices.size(); ++i)
     {
-        int m = *max_element(cac_cachchon[i].begin(), cac_cachchon[i].end());
-        diem_thuong.push_back(m);
+        int m = *max_element(choices[i].begin(), choices[i].end());
+        bonus.push_back(m);
     }
 
-    lli tong_diem = (lli)accumulate(diem_thuong.begin(), diem_thuong.end(), 0);
-    return tong_diem % (lli)(10E9 + 7);
+    lli sum_bonus = (lli)accumulate(bonus.begin(), bonus.end(), 0);
+    return sum_bonus % (lli)(10E9 + 7);
 }
 
 void Output()
@@ -92,10 +90,23 @@ void Output()
     f.close();
 }
 
+void Show_choices()
+{
+    for (vector<int> choice : choices)
+    {
+        for (int num : choice)
+        {
+            cout << num << ' ';
+        }
+        cout << endl;
+    }
+}
+
 int main()
 {
     Input();
     Output();
+    Show_choices();
 
     return 0;
 }
