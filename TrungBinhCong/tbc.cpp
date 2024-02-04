@@ -8,69 +8,67 @@
 
 using namespace std;
 
-int n;
-vector<int> a;
+int N;
+vector<int> B;
+
 
 void Input()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
-
     ifstream f;
     f.open(inputFile);
 
-    f >> n;
+    f >> N;
 
     int x;
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < N; ++i)
     {
         f >> x;
-        a.push_back(x);
+        B.push_back(x);
     }
 
     f.close();
 }
 
+
 vector<int> Process()
 {
-    // Bước 1: Khởi tạo mảng b gồm các phần tử 0
-    vector<int> b(n, 0);
-    b[0] = a[0];
+    // Bước 1: Khởi tạo mảng A gồm các phần tử 0
+    vector<int> A(N, 0);
+    A[0] = B[0];
 
-    // Bước 2: Lấy tổng tất cả phần tử trừ đi tổng của những phần tử đã có
-    //         sẽ ra được phần tử b[i] đang xét.
-    for (int i = 1; i < n; ++i)
+    // Bước 2: Lấy tổng suy từ giá trị trung bình trừ đi tổng các phần tử hiện có
+    for (int i = 1; i < N; ++i)
     {
-        // Tính tổng tất cả phần tử
-        int sum_all = a[i] * (i + 1);
+        // Tính tổng suy từ giá trị trung bình
+        int totalAverage = B[i] * (i + 1);
         
-        // Tính tổng của những phần tử đã có trước đó trong mảng b
-        int sum_before = accumulate(b.begin(), b.begin() + i + 1, 0);
+        // Tính tổng các phần tử hiện có trong mảng A
+        int totalCurrent = accumulate(A.begin(), A.begin() + i + 1, 0);
         
-        // Tính b[i] cần tìm
-        b[i] = sum_all - sum_before;
+        // Tính A[i]
+        A[i] = totalAverage - totalCurrent;
     }
 
-    return b;
+    return A;
 }
+
 
 void Output()
 {
-    vector<int> b = Process();
-    
-    ios_base::sync_with_stdio(false);
-    cout.tie(nullptr);
+    vector<int> A = Process();
 
     ofstream f;
     f.open(outputFile);
 
-    for (int i = 0; i < n; ++i)
+    for (int i = 0; i < N; ++i)
     {
-        f << b[i] << ' ';
+        f << A[i];
+        if (i != N - 1) f << ' ';
     }
 
     f.close();
 }
+
 
 int main()
 {
