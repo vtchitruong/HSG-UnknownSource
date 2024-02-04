@@ -32,11 +32,11 @@ void Input()
 
 vector<int> Process()
 {
-    // Bước 1: Khởi tạo mảng A gồm các phần tử 0
+    // Khởi tạo mảng A gồm các phần tử 0
     vector<int> A(N, 0);
     A[0] = B[0];
 
-    // Bước 2: Lấy tổng suy từ giá trị trung bình trừ đi tổng các phần tử hiện có
+    // Lấy tổng suy từ giá trị trung bình trừ đi tổng các phần tử hiện có
     for (int i = 1; i < N; ++i)
     {
         // Tính tổng suy từ giá trị trung bình
