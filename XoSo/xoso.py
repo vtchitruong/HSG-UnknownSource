@@ -50,7 +50,7 @@ def process():
 
     # Tính tổng điểm thưởng
     sum_bonus = sum(bonus, 0)
-    return sum_bonus
+    return int(sum_bonus % (10e9 + 7))
 
 
 def output():
